@@ -6,7 +6,7 @@ public class SimpleArrayList<T> implements SimpleList<T> {
 
     private T[] container;
 
-    private int size;
+    private int size = 0;
 
     private int modCount;
 
@@ -16,40 +16,45 @@ public class SimpleArrayList<T> implements SimpleList<T> {
 
     @Override
     public void add(T value) {
-        if (container.length > size) {
-            container[size] = value;
-            size++;
-        } else {
+        if (container.length <= size) {
             container = Arrays.copyOf(container, container.length * 2);
         }
+        container[size] = value;
+        size++;
         modCount++;
     }
 
     @Override
     public T set(int index, T newValue) {
         index = Objects.checkIndex(index, container.length);
+        T rsl = container[index];
         container[index] = newValue;
-        return container[index];
+        return rsl;
     }
 
     @Override
     public T remove(int index) {
         Objects.checkIndex(index, container.length);
-      System.arraycopy(container, index + 1,
+        T rsl = container[index];
+        System.arraycopy(container, index + 1,
               container, index, container.length - 1 - index);
         container[container.length - 1] = null;
-      return container[container.length - 1];
+        size--;
+        modCount++;
+      return rsl;
     }
 
     @Override
     public T get(int index) {
         index = Objects.checkIndex(index, container.length);
+        if (index > size) {
+            throw new IndexOutOfBoundsException();
+        }
         return container[index];
     }
 
     @Override
     public int size() {
-        this.size = container.length;
         return this.size;
     }
 
@@ -57,9 +62,10 @@ public class SimpleArrayList<T> implements SimpleList<T> {
     public Iterator<T> iterator() {
         return new Iterator<T>() {
             final int expectedModCount = modCount;
+            int s = 0;
             @Override
             public boolean hasNext() {
-                return iterator().hasNext();
+                return s < container.length && expectedModCount != 0;
             }
 
             @Override
@@ -70,7 +76,7 @@ public class SimpleArrayList<T> implements SimpleList<T> {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                return iterator().next();
+                return container[s++];
             }
         };
     }
