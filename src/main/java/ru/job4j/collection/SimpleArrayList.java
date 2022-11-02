@@ -14,10 +14,15 @@ public class SimpleArrayList<T> implements SimpleList<T> {
         this.container = (T[]) new Object[capacity];
     }
 
+    private T[] newLength() {
+        container = Arrays.copyOf(container, container.length * 2);
+        return container;
+    }
+
     @Override
     public void add(T value) {
         if (container.length <= size) {
-            container = Arrays.copyOf(container, container.length * 2);
+            newLength();
         }
         container[size] = value;
         size++;
@@ -26,7 +31,7 @@ public class SimpleArrayList<T> implements SimpleList<T> {
 
     @Override
     public T set(int index, T newValue) {
-        index = Objects.checkIndex(index, container.length);
+        index = Objects.checkIndex(index, size);
         T rsl = container[index];
         container[index] = newValue;
         return rsl;
@@ -34,7 +39,7 @@ public class SimpleArrayList<T> implements SimpleList<T> {
 
     @Override
     public T remove(int index) {
-        Objects.checkIndex(index, container.length);
+        Objects.checkIndex(index, size);
         T rsl = container[index];
         System.arraycopy(container, index + 1,
               container, index, container.length - 1 - index);
@@ -46,10 +51,7 @@ public class SimpleArrayList<T> implements SimpleList<T> {
 
     @Override
     public T get(int index) {
-        index = Objects.checkIndex(index, container.length);
-        if (index > size) {
-            throw new IndexOutOfBoundsException();
-        }
+        index = Objects.checkIndex(index, size);
         return container[index];
     }
 
@@ -65,14 +67,14 @@ public class SimpleArrayList<T> implements SimpleList<T> {
             int s = 0;
             @Override
             public boolean hasNext() {
-                return s < container.length && expectedModCount != 0;
+                if (expectedModCount != modCount) {
+                    throw new ConcurrentModificationException();
+                }
+                return s < size;
             }
 
             @Override
             public T next() {
-                if (expectedModCount != modCount) {
-                    throw new ConcurrentModificationException();
-                }
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
