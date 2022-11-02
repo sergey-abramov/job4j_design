@@ -14,33 +14,32 @@ public class SimpleArrayList<T> implements SimpleList<T> {
         this.container = (T[]) new Object[capacity];
     }
 
-    private T[] newLength() {
+    private void copy() {
+        if (container.length == 0) {
+            container = Arrays.copyOf(container, container.length + 1);
+        }
         container = Arrays.copyOf(container, container.length * 2);
-        return container;
     }
 
     @Override
     public void add(T value) {
         if (container.length <= size) {
-            newLength();
+            copy();
         }
-        container[size] = value;
-        size++;
+        container[size++] = value;
         modCount++;
     }
 
     @Override
     public T set(int index, T newValue) {
-        index = Objects.checkIndex(index, size);
-        T rsl = container[index];
+        T rsl = get(index);
         container[index] = newValue;
         return rsl;
     }
 
     @Override
     public T remove(int index) {
-        Objects.checkIndex(index, size);
-        T rsl = container[index];
+        T rsl = get(index);
         System.arraycopy(container, index + 1,
               container, index, container.length - 1 - index);
         container[container.length - 1] = null;
