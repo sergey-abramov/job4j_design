@@ -14,31 +14,25 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
 
     @Override
     public void add(E value) {
-     Node<E> temp = last;
-     Node<E> newNode = new Node<>(temp, value, null);
-     last = newNode;
-     if (temp == null) {
-         first = newNode;
-     } else {
-         temp.next = newNode;
-     }
-     size++;
-     modCount++;
+        Node<E> temp = last;
+        Node<E> newNode = new Node<>(value, null);
+        last = newNode;
+        if (temp == null) {
+             first = newNode;
+        } else {
+            temp.next = newNode;
+        }
+        size++;
+        modCount++;
     }
 
     @Override
     public E get(int index) {
         Objects.checkIndex(index, size);
-        Node<E> temp;
-        if (index < size / 2) {
-            temp = first;
+        Node<E> temp = first;
+        if (index < size) {
             for (int i = 0; i < index; i++) {
                 temp = temp.next;
-            }
-        } else {
-            temp = last;
-            for (int i = size - 1; i > index; i--) {
-                temp = temp.prev;
             }
         }
         return temp.item;
