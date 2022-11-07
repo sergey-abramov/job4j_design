@@ -68,4 +68,12 @@ class ListUtilsTest {
         ListUtils.removeAll(input, in);
         assertThat(input).hasSize(1).containsSequence(3);
     }
+
+    @Test
+    void whenRemoveAllOne() {
+        List<Integer> in = new ArrayList<>(Arrays.asList(1, 2, 3));
+        List<Integer> on = new ArrayList<>(Arrays.asList(1, 2, 4, 5, 6));
+        ListUtils.removeAll(in, on);
+        assertThat(in).hasSize(1).containsSequence(3);
+    }
 }
