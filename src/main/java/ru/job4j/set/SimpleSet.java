@@ -33,6 +33,9 @@ public class SimpleSet<T> implements Set<T> {
         boolean rsl = false;
         for (int i = 0; i < set.size(); i++) {
             rsl = Objects.equals(set.get(i), value);
+            if (rsl) {
+                break;
+            }
         }
         return rsl;
     }
