@@ -5,8 +5,6 @@ import ru.job4j.collection.SimpleArrayList;
 import java.util.Iterator;
 import java.util.Objects;
 
-import static java.util.Objects.isNull;
-
 public class SimpleSet<T> implements Set<T> {
 
     private SimpleArrayList<T> set = new SimpleArrayList<>(0);
@@ -19,7 +17,7 @@ public class SimpleSet<T> implements Set<T> {
             rsl = true;
         } else {
             for (int i = 0; i < set.size(); i++) {
-                if (!Objects.equals(set.get(i), value)) {
+                if (!contains(value)) {
                     set.add(value);
                     rsl = true;
                 }
@@ -43,22 +41,5 @@ public class SimpleSet<T> implements Set<T> {
     @Override
     public Iterator<T> iterator() {
         return set.iterator();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o || o == null) {
-            return true;
-        }
-        if (getClass() != o.getClass()) {
-            return false;
-        }
-        SimpleSet<?> simpleSet = (SimpleSet<?>) o;
-        return Objects.equals(set, simpleSet.set);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(set);
     }
 }
