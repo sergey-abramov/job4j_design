@@ -34,4 +34,9 @@ public class User {
         System.out.printf("User two - %S; hash - %S; bucket - %S; ",
                 hashCode2, hashTwo, bucketTwo);
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, children, birthday);
+    }
 }
