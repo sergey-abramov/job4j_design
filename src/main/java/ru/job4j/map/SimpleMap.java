@@ -29,7 +29,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
             count++;
             modCount++;
         }
-        if ((double)count/capacity >= LOAD_FACTOR) {
+        if ((double) count / capacity >= LOAD_FACTOR) {
             expand();
         }
         return rsl;
