@@ -24,7 +24,7 @@ public class User {
         int hashOne = hashCode ^ (hashCode >>> 16);
         int bucketOne = hashOne & 15;
         User two = new User("Sergey", 12, birthday);
-        int hashCode2 = one.hashCode();
+        int hashCode2 = two.hashCode();
         int hashTwo = hashCode2 ^ (hashCode2 >>> 16);
         int bucketTwo = hashTwo & 15;
         map.put(one, new Object());
@@ -38,5 +38,17 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hash(name, children, birthday);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        User user = (User) o;
+        return children == user.children && Objects.equals(name, user.name) && Objects.equals(birthday, user.birthday);
     }
 }
