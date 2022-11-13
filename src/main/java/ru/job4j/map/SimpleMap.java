@@ -58,14 +58,19 @@ public class SimpleMap<K, V> implements Map<K, V> {
         table = temp;
     }
 
+    private boolean equals(K key, MapEntry<K, V> e) {
+        int i = index(key);
+        e = table[i];
+        return e != null && hashCode(e.key) == hashCode(key)
+                && Objects.equals(key, e.key);
+    }
+
     @Override
     public V get(K key) {
         V rsl = null;
         int i = index(key);
-        MapEntry<K, V> e = table[i];
-        if (e != null && hashCode(e.key) == hashCode(key)
-                && Objects.equals(key, e.key)) {
-            rsl = e.value;
+        if (equals(key, table[i])) {
+            rsl = table[i].value;
         }
         return rsl;
     }
@@ -74,9 +79,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
     public boolean remove(K key) {
         boolean rsl = false;
         int i = index(key);
-        MapEntry<K, V> e = table[i];
-        if (e != null && hashCode(e.key) == hashCode(key)
-                && Objects.equals(key, e.key)) {
+        if (equals(key, table[i])) {
             table[i] = null;
             rsl = true;
             count++;
@@ -98,7 +101,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
                 while (point < capacity && table[point] == null) {
                     point++;
                 }
-                return point < capacity && table[point] != null;
+                return point < capacity;
             }
 
             @Override
