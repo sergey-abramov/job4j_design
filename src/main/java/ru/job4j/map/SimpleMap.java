@@ -17,14 +17,9 @@ public class SimpleMap<K, V> implements Map<K, V> {
     @Override
     public boolean put(K key, V value) {
         boolean rsl = false;
-        int index = indexFor(hash(key));
-        if (key != null && table[index] == null) {
-            table[index] = new MapEntry<>(key, value);
-            rsl = true;
-            count++;
-            modCount++;
-        } else if (table[0] == null) {
-            table[0] = new MapEntry<>(key, value);
+        int i = index(key);
+        if (table[i] == null) {
+            table[i] = new MapEntry<>(key, value);
             rsl = true;
             count++;
             modCount++;
@@ -35,12 +30,20 @@ public class SimpleMap<K, V> implements Map<K, V> {
         return rsl;
     }
 
-    private int hash(K key) {
-        return (key == null) ? 0 : (key.hashCode()) ^ (key.hashCode() >>> 16);
+    private int hashCode(K key) {
+        return key == null ? 0 : key.hashCode();
+    }
+
+    private int hash(int hashCode) {
+        return hashCode ^ (hashCode >>> 16);
     }
 
     private int indexFor(int hash) {
         return hash & (capacity - 1);
+    }
+
+    private int index(K key) {
+        return indexFor(hash(hashCode(key)));
     }
 
     private void expand() {
@@ -48,7 +51,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
         MapEntry<K, V>[] temp = new MapEntry[capacity];
         for (MapEntry<K, V> e : table) {
             if (e != null) {
-                int i = indexFor(hash(e.key));
+                int i = index(e.key);
                 temp[i] = e;
             }
         }
@@ -58,9 +61,9 @@ public class SimpleMap<K, V> implements Map<K, V> {
     @Override
     public V get(K key) {
         V rsl = null;
-        int i = indexFor(hash(key));
+        int i = index(key);
         MapEntry<K, V> e = table[i];
-        if (e != null && hash(e.key) == hash(key)
+        if (e != null && hashCode(e.key) == hashCode(key)
                 && Objects.equals(key, e.key)) {
             rsl = e.value;
         }
@@ -70,9 +73,9 @@ public class SimpleMap<K, V> implements Map<K, V> {
     @Override
     public boolean remove(K key) {
         boolean rsl = false;
-        int i = indexFor(hash(key));
+        int i = index(key);
         MapEntry<K, V> e = table[i];
-        if (e != null && hash(e.key) == hash(key)
+        if (e != null && hashCode(e.key) == hashCode(key)
                 && Objects.equals(key, e.key)) {
             table[i] = null;
             rsl = true;
