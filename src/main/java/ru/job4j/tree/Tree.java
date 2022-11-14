@@ -12,7 +12,6 @@ public interface Tree<E> {
 
     boolean isBinary();
 
-
     class Node<E> {
         final E value;
         final List<Node<E>> children = new ArrayList<>();
