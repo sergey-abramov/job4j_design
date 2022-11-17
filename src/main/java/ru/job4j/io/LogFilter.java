@@ -30,8 +30,6 @@ public class LogFilter {
                 new BufferedOutputStream(
                         new FileOutputStream(file)
                 ))) {
-            LogFilter logFilter = new LogFilter();
-            log = logFilter.filter("log.txt");
             for (String s : log) {
                 out.println(s);
             }
@@ -43,8 +41,6 @@ public class LogFilter {
     public static void main(String[] args) {
         LogFilter logFilter = new LogFilter();
         List<String> log = logFilter.filter("log.txt");
-        for (String s : log) {
-            System.out.println(s);
-        }
+        save( log, "404");
     }
 }
