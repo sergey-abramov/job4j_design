@@ -14,7 +14,7 @@ public class LogFilter {
                 String[] line = in.readLine().split(System.lineSeparator());
                 for (String s : line) {
                     String[] l = s.split(" ");
-                    if (l[l.length - 2].equals("404")) {
+                    if ("404".equals(l[l.length - 2])) {
                         rsl.add(Arrays.toString(l));
                     }
                 }
@@ -43,6 +43,8 @@ public class LogFilter {
     public static void main(String[] args) {
         LogFilter logFilter = new LogFilter();
         List<String> log = logFilter.filter("log.txt");
-        save(log, "404");
+        for (String s : log) {
+            System.out.println(s);
+        }
     }
 }
