@@ -41,6 +41,6 @@ public class LogFilter {
     public static void main(String[] args) {
         LogFilter logFilter = new LogFilter();
         List<String> log = logFilter.filter("log.txt");
-        save(log, "404");
+        save(log, "404.txt");
     }
 }
