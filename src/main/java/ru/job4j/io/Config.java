@@ -19,18 +19,16 @@ public class Config {
     public void load() {
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
             while (read.ready()) {
-                String[] s = read.readLine().split(System.lineSeparator());
-                for (int i = 0; i < s.length; i++) {
-                    if (s[i].length() == 0 || s[i].startsWith("#")) {
-                        i++;
-                    } else if (s[i].startsWith("=") || s[i].endsWith("=") && s[i].split("=").length < 2) {
-                        throw new IllegalArgumentException();
-                    } else {
-                        String[] r = s[i].split("=", 2);
-                        if (r.length >= 2) {
-                            values.put(r[0], r[1]);
-                        }
+                String s = read.readLine();
+                if (!s.startsWith("#") && s.length() != 0) {
+                    if (s.endsWith("=") && s.indexOf("=") == s.lastIndexOf("=")) {
+                        throw new IllegalArgumentException("String not have key and value");
                     }
+                    if (s.contains("=") && s.startsWith("=")) {
+                        throw new IllegalArgumentException("String not have key");
+                    }
+                    String[] r = s.split("=", 2);
+                    values.put(r[0], r[1]);
                 }
             }
         } catch (IOException e) {
