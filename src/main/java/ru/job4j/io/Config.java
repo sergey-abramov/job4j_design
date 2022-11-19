@@ -10,19 +10,27 @@ import java.util.stream.Collectors;
 public class Config {
 
     private final String path;
-    private final Map<String, String> values = new HashMap<String, String>();
+    private final Map<String, String> values = new HashMap<>();
 
     public Config(final String path) {
         this.path = path;
     }
 
     public void load() {
-        StringJoiner out = new StringJoiner("=");
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
-            String[] r = read.readLine().split(System.lineSeparator());
-            for (String e : r) {
-                if (!"".equals(e)) {
-                    out.add(e);
+            while (read.ready()) {
+                String[] s = read.readLine().split(System.lineSeparator());
+                for (int i = 0; i < s.length; i++) {
+                    if (s[i].length() == 0 || s[i].startsWith("#")) {
+                        i++;
+                    } else if (s[i].startsWith("=") || s[i].endsWith("=") && s[i].split("=").length < 2) {
+                        throw new IllegalArgumentException();
+                    } else {
+                        String[] r = s[i].split("=", 2);
+                        if (r.length >= 2) {
+                            values.put(r[0], r[1]);
+                        }
+                    }
                 }
             }
         } catch (IOException e) {
