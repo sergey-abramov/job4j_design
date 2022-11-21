@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.*;
 class AnalysisTest {
 
     @Test
-    void drop(@TempDir Path tempDir) throws IOException {
+    void log(@TempDir Path tempDir) throws IOException {
         File source = tempDir.resolve("source_33.txt").toFile();
         try (PrintWriter out = new PrintWriter(source)) {
             out.println("""
@@ -33,7 +33,7 @@ class AnalysisTest {
     }
 
     @Test
-    void drop_2(@TempDir Path tempDir) throws IOException {
+    void log2(@TempDir Path tempDir) throws IOException {
         File source = tempDir.resolve("source_22.txt").toFile();
         try (PrintWriter out = new PrintWriter(source)) {
             out.println("200 10:56:01");
