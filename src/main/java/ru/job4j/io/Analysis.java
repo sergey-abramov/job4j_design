@@ -18,6 +18,7 @@ public class Analysis {
                     out.printf("%s;\n ", s[1]);
                 }
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
