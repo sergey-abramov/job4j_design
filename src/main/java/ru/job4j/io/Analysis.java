@@ -1,7 +1,6 @@
 package ru.job4j.io;
 
 import java.io.*;
-import java.util.Arrays;
 
 public class Analysis {
 
@@ -22,15 +21,5 @@ public class Analysis {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public static void main(String[] args) {
-      /*  String sourse = "C:\\projects\\job4j_design\\log\\source_.txt";
-        String target = "C:\\projects\\job4j_design\\log\\target_1.txt";
-        Analysis analysis = new Analysis();
-        analysis.unavailable(sourse, target);
-        sourse = "C:\\projects\\job4j_design\\log\\source_2.txt";
-        target = "C:\\projects\\job4j_design\\log\\target_2.txt";
-        analysis.unavailable(sourse, target);*/
     }
 }
