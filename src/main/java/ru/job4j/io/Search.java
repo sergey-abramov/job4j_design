@@ -1,5 +1,6 @@
 package ru.job4j.io;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.OptionalDataException;
 import java.nio.file.Files;
@@ -25,11 +26,12 @@ public class Search {
         if (args.length != 2) {
             throw new IllegalArgumentException("The root folder is empty or search argument is null. Use ROOT_FOLDER or SEARCH_ARGUMENT.");
         }
-        if (!Paths.get(args[0]).toFile().exists()) {
-            throw new IllegalArgumentException(String.format("Not exist %s", Paths.get(args[0]).toFile().getAbsoluteFile()));
+        File start = Paths.get(args[0]).toFile();
+        if (!start.exists()) {
+            throw new IllegalArgumentException("args[0] - not exist");
         }
-        if (!Paths.get(args[0]).toFile().isDirectory()) {
-            throw new IllegalArgumentException(String.format("Not directory %s", Paths.get(args[0]).toFile().getAbsoluteFile()));
+        if (!start.isDirectory()) {
+            throw new IllegalArgumentException("args[0] - not directory ");
         }
         if (!args[1].startsWith(".") || args[1].length() < 2) {
             throw new IllegalArgumentException("This search argument is not extension.");
