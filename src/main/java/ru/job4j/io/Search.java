@@ -2,7 +2,6 @@ package ru.job4j.io;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.OptionalDataException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -28,10 +27,10 @@ public class Search {
         }
         File start = Paths.get(args[0]).toFile();
         if (!start.exists()) {
-            throw new IllegalArgumentException("args[0] - not exist");
+            throw new IllegalArgumentException(String.format("%s - not exist", args[0]));
         }
         if (!start.isDirectory()) {
-            throw new IllegalArgumentException("args[0] - not directory ");
+            throw new IllegalArgumentException(String.format("%s - not directory", args[0]));
         }
         if (!args[1].startsWith(".") || args[1].length() < 2) {
             throw new IllegalArgumentException("This search argument is not extension.");
