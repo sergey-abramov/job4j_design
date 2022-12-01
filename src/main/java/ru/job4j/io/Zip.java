@@ -38,25 +38,24 @@ public class Zip {
     }
 
     public static void valid(String[] args) {
-        if (args.length != 3) {
-            throw new IllegalArgumentException("Not enough arguments");
-        }
-        File directory = Paths.get(args[0]).toFile();
+        ArgsName arguments = ArgsName.of(args);
+        File directory = Path.of(arguments.get("d")).toFile();
         if (!directory.exists()) {
             throw new IllegalArgumentException(String.format("%s - not exist", args[0]));
         }
         if (!directory.isDirectory()) {
             throw new IllegalArgumentException(String.format("%s - not directory", args[0]));
         }
-        if (!args[1].startsWith(".") || args[1].length() < 2) {
+        if (!arguments.get("e").startsWith(".") || args[1].length() < 2) {
             throw new IllegalArgumentException("This search argument is not extension.");
         }
-        if (!args[2].endsWith(".zip")) {
+        if (!arguments.get("o").endsWith(".zip")) {
             throw new IllegalArgumentException("Argument must be in .zip format");
         }
     }
 
     public List<Path> pathList(String[] args) throws IOException {
+        valid(args);
         ArgsName arguments = ArgsName.of(args);
         Path directory = Path.of(arguments.get("d"));
         this.pathZip = Path.of(arguments.get("o"));
@@ -64,6 +63,9 @@ public class Zip {
     }
 
     public static void main(String[] args) throws IOException {
+        if (args.length != 3) {
+            throw new IllegalArgumentException("Not enough arguments");
+        }
         valid(args);
         Zip zip = new Zip();
         zip.packFiles(zip.pathList(args), zip.pathZip.toFile());
