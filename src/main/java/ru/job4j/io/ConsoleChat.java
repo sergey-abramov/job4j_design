@@ -23,6 +23,7 @@ public class ConsoleChat {
         List<String> log = new ArrayList<>();
         String ln = System.lineSeparator();
         String question = String.format(scanner.nextLine() + ln);
+        List<String> rsl = new ArrayList<>(readPhrases());
         while (!scanner.hasNext(OUT)) {
             if (scanner.hasNext(STOP)) {
                 while (!scanner.hasNext(CONTINUE)) {
@@ -31,7 +32,7 @@ public class ConsoleChat {
                 }
             }
             log.add(question);
-            String s = readPhrases().get(new Random().nextInt(readPhrases().size()));
+            String s = rsl.get(new Random().nextInt(rsl.size()));
             System.out.println(s);
             log.add(s + ln);
             scanner.nextLine();
@@ -44,8 +45,7 @@ public class ConsoleChat {
         List<String> rsl = new ArrayList<>();
         try (BufferedReader in = new BufferedReader(new FileReader(botAnswers))) {
             while (in.ready()) {
-                String s = in.readLine();
-                rsl.add(s);
+                rsl.add(in.readLine());
             }
         } catch (IOException e) {
             e.printStackTrace();
