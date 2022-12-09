@@ -21,8 +21,9 @@ public class UsageLog4j {
         float growtM = 1.75f;
         byte byt = 2;
         short s = 23;
+        char zero = 48;
         LOG.debug("User info name : {}, age : {}, growthMM : {}, growthM : {}, growtM {}.",
                 name, age, growthMM, growthM, growtM);
-        LOG.debug("Yng? - {}. Byt = {}, short = {}", yng, byt, s);
+        LOG.debug("Yng? - {}. Byt = {}, short = {}, char = {}", yng, byt, s, zero);
     }
 }
