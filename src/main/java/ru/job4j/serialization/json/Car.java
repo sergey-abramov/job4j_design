@@ -1,19 +1,29 @@
 package ru.job4j.serialization.json;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Arrays;
 
+@XmlRootElement(name = "car")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Car {
 
-    private final boolean ride;
-    private final int speed;
-    private final Number number;
-    private final String[] drivers;
+    @XmlAttribute
+    private boolean ride;
+    private int speed;
+    private Number number;
+    private String[] drivers;
 
-    public Car(boolean ride, int speed, Number number, String[] statuses) {
+    public Car() {
+    }
+
+    public Car(boolean ride, int speed, Number number, String[] drivers) {
         this.ride = ride;
         this.speed = speed;
         this.number = number;
-        this.drivers = statuses;
+        this.drivers = drivers;
     }
 
     @Override
@@ -22,7 +32,7 @@ public class Car {
                 + "ride=" + ride
                 + ", speed=" + speed
                 + ", number=" + number
-                + ", statuses=" + Arrays.toString(drivers)
+                + ", drivers=" + Arrays.toString(drivers)
                 + '}';
     }
 }
