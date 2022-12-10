@@ -2,6 +2,7 @@ package ru.job4j.serialization.json;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.json.JSONObject;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -53,8 +54,15 @@ public class Main {
             System.out.println(rsl);
         }
     }
+
+    private static void jsonOrg() {
+        Car car = new Car(true, 160, new Number("021"),
+                new String[] {"Ivan, Vladimir, Nickolas"});
+        System.out.println(new JSONObject(car));
+    }
     public static void main(String[] args) throws JAXBException, IOException {
-       json();
-       xml();
+        json();
+        xml();
+        jsonOrg();
     }
 }

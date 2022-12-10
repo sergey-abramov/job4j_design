@@ -26,6 +26,38 @@ public class Car {
         this.drivers = drivers;
     }
 
+    public boolean isRide() {
+        return ride;
+    }
+
+    public void setRide(boolean ride) {
+        this.ride = ride;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    public Number getNumber() {
+        return number;
+    }
+
+    public void setNumber(Number number) {
+        this.number = number;
+    }
+
+    public String[] getDrivers() {
+        return drivers;
+    }
+
+    public void setDrivers(String[] drivers) {
+        this.drivers = drivers;
+    }
+
     @Override
     public String toString() {
         return "Car{"
