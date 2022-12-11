@@ -65,6 +65,7 @@ public class Main {
             throw new IllegalArgumentException("Args.length != 4");
         }
         ArgsName argsName = ArgsName.of(args);
+        valid(argsName);
         write(argsName.get("o"), searchBy(argsName));
     }
 }
