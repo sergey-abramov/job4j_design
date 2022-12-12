@@ -1,10 +1,1 @@
-C:\projects\job4j_design\.idea\checkstyleidea-libs\readme.txt
-C:\projects\job4j_design\404.txt
-C:\projects\job4j_design\bot_log.txt
-C:\projects\job4j_design\even.txt
-C:\projects\job4j_design\log\source_2.txt
-C:\projects\job4j_design\log\target_2.txt
 C:\projects\job4j_design\log.txt
-C:\projects\job4j_design\multiple.txt
-C:\projects\job4j_design\search.txt
-C:\projects\job4j_design\string_bot.txt

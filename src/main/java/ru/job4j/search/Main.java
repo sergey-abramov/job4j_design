@@ -3,12 +3,14 @@ package ru.job4j.search;
 import ru.job4j.io.ArgsName;
 import ru.job4j.io.Search;
 
+import javax.swing.text.MaskFormatter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +29,11 @@ public class Main {
         }
         if ("mask".equals(argsName.get("t"))) {
             rsl = Search.search(Paths.get(argsName.get("d")),
-                    path -> path.toFile().getName().matches(argsName.get("n")));
+                    path -> path.toFile().getName().matches(argsName.get("n")
+                            .replace("*", ".+")
+                            .replace(".", "[.]")
+                            .replace("?", "."))
+            );
         }
         return rsl;
     }
