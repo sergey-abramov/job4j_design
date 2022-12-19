@@ -1,0 +1,26 @@
+insert into role(name) values ('Hero');
+insert into role(name) values ('AntiHero');
+
+insert into users(name) values ('Ivan');
+insert into users(name) values ('Vladimir');
+
+insert into rules(name) values ('Ivan');
+insert into rules(name) values ('Ivan');
+
+insert into role_rules(role_id, rules_id) values (1, 2);
+
+insert into item(name, users_id) values ('Item 1', 1);
+insert into item(name, users_id) values ('Item 2', 1);
+insert into item(name, users_id) values ('Item 3', 1);
+
+insert into comments(name, item_id) values ('Comment', 1);
+insert into comments(name, item_id) values ('Comment', 1);
+
+insert into attachs(name, item_id) values ('File.txt', 1);
+insert into attachs(name, item_id) values ('File2.txt', 1);
+
+insert into category(name, item_id) values ('Category 1', 1);
+insert into category(name, item_id) values ('Category 1', 3);
+
+insert into state(status, item_id) values ('Filed', 1);
+insert into state(status, item_id) values ('Filed', 3);
