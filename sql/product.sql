@@ -30,16 +30,29 @@ values ('Степ', 3, '2023-01-10', 30);
 insert into product(name, type_id, expired_date, price)
 values ('Марс', 3, '2023-01-10', 50);
 
-select * from product where type_id = 1;
-select * from product where name like '%мороженое%';
-select * from product where expired_date < '2023-01-04';
-select * from product where type_id = 1 or type_id = 2;
-select p.name, t.name
-from product p join type t on p.type_id = t.id;
-select t.name, max(p.price)
-from product p join type t on p.type_id = t.id group by t.name;
-select t.name, count(t.id)
-from product p join type t on p.type_id = t.id group by t.name;
-select t.name, count(t.id)
+select p.name, p.price, t.name
 from product p join type t on p.type_id = t.id
+where t.name like '%СЫР%';
+
+select * from product where name like '%мороженое%';
+
+select * from product where expired_date < current_date;
+
+select p.name, p.price, t.name
+from product p join type t on p.type_id = t.id
+where t.name like '%СЫР%' or t.name like '%МОЛОКО%';
+
+select p.name, t.name
+from product p join type t
+on p.type_id = t.id;
+
+select * from product where price = (select max(price) from product);
+
+select t.name, count(t.id)
+from product p join type t
+on p.type_id = t.id group by t.name;
+
+select t.name, count(t.id)
+from product p join type t
+on p.type_id = t.id
 group by t.name having count(t.id) < 10;
