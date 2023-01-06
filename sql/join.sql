@@ -33,4 +33,7 @@ select * from employees e cross join departments d;
 select * from departments d left join employees e on e.departments_id = d.id where e.id is null;
 
 select * from employees e left join departments d on e.departments_id = d.id;
-select * from departments d right join employees e on d.id = e.departments_id;
+select e.id, e.name, e.departments_id, d.id, d.name
+from departments d
+right join employees e
+on e.departments_id = d.id;
