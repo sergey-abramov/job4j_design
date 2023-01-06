@@ -7,4 +7,6 @@ create table teens(
 insert into teens(name, gender) values ('Piter', 'M');
 insert into teens(name, gender) values ('Sasha', 'Ж');
 
-select t1.name, t2.name, t1.gender, t2.gender from teens t1 cross join teens t2;
+select t1.name, t2.name, t1.gender, t2.gender
+from teens t1 cross join teens t2
+where t1.gender != t2.gender;
