@@ -29,14 +29,13 @@ create trigger tax_trigger
     after insert on products
     referencing new table as inserted
     for each statement
-    execute procedure tax();
+    execute procedure tax_statement();
 
 create or replace function tax_row()
     returns trigger as
 $$
     BEGIN
-        update products
-        set price = new.price + new.price * 0.13;
+        new.price = new.price + new.price * 0.13;
         return new;
     END;
 $$
