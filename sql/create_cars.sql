@@ -16,9 +16,9 @@ create table car_transmissions(
 create table car_model(
     id serial primary key,
     name varchar(255),
-    bodies_id int references bodies(id),
-    engines_id int references engines(id),
-    transmissions_id int references transmissions(id)
+    bodies_id int references car_bodies(id),
+    engines_id int references car_engines(id),
+    transmissions_id int references car_transmissions(id)
 );
 
 insert into car_bodies(name) values ('Купе'), ('Седан'), ('Универсал'), ('Внедорожник'), ('Кроссовер'), (null);
@@ -32,9 +32,9 @@ insert into car_model(name, bodies_id, engines_id, transmissions_id) values ('GA
 
 select car.name as model, tr.name as transm, en.name as engine, bo.name as body
 from car_model car
-join car_transmissions tr on car.transmissions_id = tr.id
-join car_engines en on car.engines_id = en.id
-join car_bodies bo on car.bodies_id = bo.id;
+left join car_transmissions tr on car.transmissions_id = tr.id
+left join car_engines en on car.engines_id = en.id
+left join car_bodies bo on car.bodies_id = bo.id;
 
 select bo.name from car_bodies bo
 left join car_model car on bo.id = car.bodies_id
