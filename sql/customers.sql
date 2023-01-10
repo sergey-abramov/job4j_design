@@ -25,4 +25,4 @@ insert into orders(amount, customer_id) values (1, 2);
 insert into orders(amount, customer_id) values (2, 2);
 insert into orders(amount, customer_id) values (3, 1);
 
-select * from customers where customers.id not in (select customers.id from orders);
+select * from customers where customers.id not in (select customer_id from orders);
