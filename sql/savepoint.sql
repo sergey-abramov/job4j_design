@@ -1,0 +1,11 @@
+begin;
+set session characteristics as transaction isolation level serializable;
+select * from products;
+savepoint save_1;
+delete from products;
+savepoint save_2;
+drop table products;
+release savepoint save_1;
+rollback to savepoint save_2;
+rollback;
+commit;
