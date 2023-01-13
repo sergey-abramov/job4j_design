@@ -22,12 +22,14 @@ public class ImportDB {
     public List<User> load() throws IOException {
         List<User> users = new ArrayList<>();
         try (BufferedReader rd = new BufferedReader(new FileReader(dump))) {
-            while (rd.ready()) {
-                String[] user = rd.readLine().split(";");
-                if (user.length > 1) {
-                users.add(new User(user[0], user[1]));
+            rd.lines().forEach(line -> {
+                String[] user = line.split(";", 2);
+                if (user.length == 2 && user[0].length() != 0 && user[1].length() != 0) {
+                    users.add(new User(user[0], user[1]));
+                } else {
+                    throw new IllegalArgumentException("Нужно добавить имя или email");
                 }
-            }
+            });
         }
         return users;
     }
