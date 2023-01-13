@@ -24,11 +24,10 @@ public class ImportDB {
         try (BufferedReader rd = new BufferedReader(new FileReader(dump))) {
             rd.lines().forEach(line -> {
                 String[] user = line.split(";", 2);
-                if (user.length == 2 && user[0].length() != 0 && user[1].length() != 0) {
-                    users.add(new User(user[0], user[1]));
-                } else {
+                if (user.length != 2 || user[0].length() == 0 || user[1].length() == 0) {
                     throw new IllegalArgumentException("Нужно добавить имя или email");
                 }
+                users.add(new User(user[0], user[1]));
             });
         }
         return users;
